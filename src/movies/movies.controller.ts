@@ -8,7 +8,8 @@ import {
   Post,
   Query,
 } from '@nestjs/common';
-import { createMovieDto } from './dto/create-movie.dto';
+import { CreateMovieDto } from './dto/create-movie.dto';
+import { UpdateMovieDto } from './dto/update-movie.dto';
 import { Movie } from './entities/movie.entity';
 import { MoviesService } from './movies.service';
 
@@ -33,7 +34,7 @@ export class MoviesController {
   }
 
   @Post()
-  create(@Body() movieData: createMovieDto) {
+  create(@Body() movieData: CreateMovieDto) {
     return this.moviesService.create(movieData);
   }
 
@@ -47,7 +48,7 @@ export class MoviesController {
    * @Patch는 일부 내용만 업데이트 함
    */
   @Patch('/:id')
-  patch(@Param('id') movieId: number, @Body() updateData) {
+  patch(@Param('id') movieId: number, @Body() updateData: UpdateMovieDto) {
     return this.moviesService.update(movieId, updateData);
   }
 }
