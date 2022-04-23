@@ -23,6 +23,13 @@ export class MoviesController {
   //nest 에서는 express 처럼 서비스들을 하나하나 import로 호출하지 않음
   constructor(private readonly moviesService: MoviesService) {}
 
+  /**
+   *  Nest js에서는 @Req, @Res 같은 데코레이터를 통해
+   *  express의 기능 그대로 사용할 수 있다.
+   *
+   *  하지만 Nest는 express와 fastify를 동시에 사용하는 프레임워크로
+   *  직접 사용하는것보다 Nest의 기능을 이용해 사용하는 것을 권장한다.
+   */
   @Get()
   getAll(): Movie[] {
     return this.moviesService.getAll();
