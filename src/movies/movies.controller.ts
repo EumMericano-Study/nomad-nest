@@ -1,4 +1,12 @@
-import { Controller, Delete, Get, Param, Patch, Post } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Param,
+  Patch,
+  Post,
+} from '@nestjs/common';
 
 /**
  * Controller
@@ -12,14 +20,19 @@ export class MoviesController {
     return 'would be get all movies';
   }
 
+  @Get('search')
+  search() {
+    return `We are searching for a movie with title: `;
+  }
+
   @Get('/:id')
   getOne(@Param('id') movieId: string) {
     return `this would be return id-${movieId} movie`;
   }
 
   @Post()
-  create() {
-    return 'This will create a movie';
+  create(@Body() movieData) {
+    return movieData;
   }
 
   @Delete('/:id')
@@ -32,7 +45,10 @@ export class MoviesController {
    * @Patch는 일부 내용만 업데이트 함
    */
   @Patch('/:id')
-  patch(@Param('id') movieId: String) {
-    return `This will patch a movie ${movieId}`;
+  patch(@Param('id') movieId: String, @Body() updateData) {
+    return {
+      updatedMovie: movieId,
+      ...updateData,
+    };
   }
 }
