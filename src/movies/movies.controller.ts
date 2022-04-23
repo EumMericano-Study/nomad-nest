@@ -8,6 +8,8 @@ import {
   Post,
   Query,
 } from '@nestjs/common';
+import { Movie } from './entities/movie.entity';
+import { MoviesService } from './movies.service';
 
 /**
  * Controller
@@ -16,29 +18,27 @@ import {
  */
 @Controller('movies')
 export class MoviesController {
-  @Get()
-  getAll() {
-    return 'would be get all movies';
-  }
+  //nest 에서는 express 처럼 서비스들을 하나하나 import로 호출하지 않음
+  constructor(private readonly moviesService: MoviesService) {}
 
-  @Get('search')
-  search(@Query('year') searchingYear: string) {
-    return `We are searching for a movie made after: ${searchingYear}`;
+  @Get()
+  getAll(): Movie[] {
+    return this.moviesService.getAll();
   }
 
   @Get('/:id')
-  getOne(@Param('id') movieId: string) {
-    return `this would be return id-${movieId} movie`;
+  getOne(@Param('id') movieId: string): Movie {
+    return this.moviesService.getOne(movieId);
   }
 
   @Post()
   create(@Body() movieData) {
-    return movieData;
+    return this.moviesService.create(movieData);
   }
 
   @Delete('/:id')
-  delete(@Param('id') movieId: String) {
-    return `This will delete a movie ${movieId}`;
+  delete(@Param('id') movieId: string) {
+    return this.moviesService.deleteOne(movieId);
   }
 
   /**

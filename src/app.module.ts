@@ -1,5 +1,6 @@
 import { Module } from '@nestjs/common';
 import { MoviesController } from './movies/movies.controller';
+import { MoviesService } from './movies/movies.service';
 
 /*
  *  데코레이터를 통해 클래스에 함수 기능들을 추가할 수 있다.
@@ -8,6 +9,6 @@ import { MoviesController } from './movies/movies.controller';
 @Module({
   imports: [],
   controllers: [MoviesController],
-  providers: [],
+  providers: [MoviesService],
 })
 export class AppModule {}
